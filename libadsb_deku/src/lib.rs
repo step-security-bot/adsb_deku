@@ -48,7 +48,7 @@ See [`rsadsb.github.io`] for more details.
 | 31                  | [`ME::AircraftOperationStatus`]        |
 
 # Example
-To begin using `adsb_deku`, import the [`Frame`] struct as well as the trait [`deku::DekuReaderRead`].
+To begin using `adsb_deku`, import the [`Frame`] struct.
 This trait is re-exported for your convenience. [`Frame::from_reader()`] provides the interface for decoding bytes
 into adsb data.
 
