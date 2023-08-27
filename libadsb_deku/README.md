@@ -53,7 +53,6 @@ struct and then executing the `fmt::Display` Trait for display of information.
 ```rust
 use hexlit::hex;
 use adsb_deku::Frame;
-use adsb_deku::deku::DekuContainerRead;
 
 let bytes = hex!("8da2c1bd587ba2adb31799cb802b");
 let frame = Frame::from_reader(bytes.as_ref()).unwrap();
