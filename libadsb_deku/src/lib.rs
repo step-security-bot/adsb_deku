@@ -138,7 +138,6 @@ use core::{
     result::Result::{Err, Ok},
     write, writeln,
 };
-use std::io::Read;
 
 pub mod adsb;
 pub mod bds;
