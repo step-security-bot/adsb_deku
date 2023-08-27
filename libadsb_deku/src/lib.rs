@@ -166,7 +166,7 @@ pub struct Frame {
 impl Frame {
     pub fn from_reader<R>(mut r: R) -> Result<Frame, DekuError>
     where
-        R: acid_io::Read,
+        R: Read,
     {
         let mut reader = Reader::new(&mut r);
         reader.enable_read_cache();
