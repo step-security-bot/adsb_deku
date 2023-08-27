@@ -210,7 +210,7 @@ impl Frame {
             cache.append(&mut buf);
         }
 
-        let crc = crc::modes_checksum(&cache, bit_len)?;
+        let crc = crc::modes_checksum(cache, bit_len)?;
         Ok(crc)
     }
 }
