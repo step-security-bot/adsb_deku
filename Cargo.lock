@@ -534,7 +534,7 @@ dependencies = [
 [[package]]
 name = "deku_derive"
 version = "0.16.0"
-source = "git+https://github.com/sharksforarms/deku?branch=impl-reader#518ccdf15ea4ce415f10aa4364a75eee0629d76f"
+source = "git+https://github.com/sharksforarms/deku?branch=impl-reader#5d37378aa882420f8ac4c22fb9a67edf0f23765e"
 dependencies = [
  "darling 0.14.4",
  "proc-macro-crate",
