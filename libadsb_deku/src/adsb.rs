@@ -20,7 +20,7 @@ use core::{
     result::Result::Ok,
     stringify, write, writeln,
 };
-use std::io::Read;
+use deku::acid_io::Read;
 #[cfg(not(feature = "alloc"))]
 use std::{fmt, i64};
 
