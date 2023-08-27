@@ -150,7 +150,7 @@ mod readme_test {}
 
 use adsb::{ControlField, ADSB};
 use bds::BDS;
-use deku::acid_io;
+use deku::acid_io::Read;
 use deku::prelude::*;
 
 /// Downlink ADS-B Packet
