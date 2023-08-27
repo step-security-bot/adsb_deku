@@ -523,7 +523,7 @@ dependencies = [
 [[package]]
 name = "deku"
 version = "0.16.0"
-source = "git+https://github.com/sharksforarms/deku?branch=impl-reader#5d37378aa882420f8ac4c22fb9a67edf0f23765e"
+source = "git+https://github.com/sharksforarms/deku?branch=impl-reader#af4dd864d00586a3ccdd5f943d038d9287c805db"
 dependencies = [
  "acid_io",
  "bitvec",
