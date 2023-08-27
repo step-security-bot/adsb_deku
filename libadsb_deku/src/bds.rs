@@ -3,6 +3,8 @@
 use alloc::format;
 use alloc::string::String;
 #[cfg(feature = "alloc")]
+use alloc::vec;
+#[cfg(feature = "alloc")]
 use core::{
     clone::Clone, cmp::PartialEq, fmt, fmt::Debug, prelude::rust_2021::derive, result::Result::Ok,
     writeln,
