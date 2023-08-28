@@ -528,7 +528,6 @@ dependencies = [
  "acid_io",
  "bitvec",
  "deku_derive",
- "log",
 ]
 
 [[package]]
