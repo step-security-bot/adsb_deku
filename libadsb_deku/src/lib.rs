@@ -153,6 +153,21 @@ use bds::BDS;
 use deku::acid_io::Read;
 use deku::prelude::*;
 
+/// Every read to this struct will be saved into an internal cache. This is to keep the cache
+/// around for the crc without reading from the buffer twice!
+struct ReaderCrc<R: Read> {
+    reader: R,
+    cache: Vec<u8>,
+}
+
+impl<R: Read> Read for ReaderCrc<R> {
+    fn read(&mut self, buf: &mut [u8]) -> deku::acid_io::Result<usize> {
+        let n = self.reader.read(buf);
+        self.cache.extend_from_slice(buf);
+        n
+    }
+}
+
 /// Downlink ADS-B Packet
 #[derive(Debug, PartialEq, Clone)]
 #[cfg_attr(feature = "serde", derive(serde::Serialize, serde::Deserialize))]
@@ -164,17 +179,18 @@ pub struct Frame {
 }
 
 impl Frame {
-    pub fn from_reader<R>(mut r: R) -> Result<Frame, DekuError>
+    pub fn from_reader<R>(r: R) -> Result<Frame, DekuError>
     where
         R: Read,
     {
-        let mut reader = Reader::new(&mut r);
-        reader.enable_read_cache();
+        let mut reader_crc = ReaderCrc {
+            reader: r,
+            cache: vec![],
+        };
+        let mut reader = Reader::new(&mut reader_crc);
         let df = DF::from_reader_with_ctx(&mut reader, ())?;
 
-        let mut already_read = reader.read_cache.unwrap();
-
-        let crc = Self::read_crc(&df, &mut already_read, r)?;
+        let crc = Self::read_crc(&df, &mut reader_crc)?;
 
         Ok(Self { df, crc })
     }
@@ -182,11 +198,7 @@ impl Frame {
 
 impl Frame {
     /// Read rest as CRC bits
-    fn read_crc<R: Read>(
-        df: &DF,
-        cache: &mut Vec<u8>,
-        mut reader: R,
-    ) -> result::Result<u32, DekuError> {
+    fn read_crc<R: Read>(df: &DF, reader: &mut ReaderCrc<R>) -> result::Result<u32, DekuError> {
         const MODES_LONG_MSG_BYTES: usize = 14;
         const MODES_SHORT_MSG_BYTES: usize = 7;
 
@@ -201,14 +213,14 @@ impl Frame {
             MODES_LONG_MSG_BYTES * 8
         };
 
-        if bit_len > cache.len() * 8 {
+        if bit_len > reader.cache.len() * 8 {
             let mut buf = vec![];
             reader.read_to_end(&mut buf).unwrap();
             log::info!("reading more: {buf:02x?}");
-            cache.append(&mut buf);
+            reader.cache.append(&mut buf);
         }
 
-        let crc = crc::modes_checksum(cache, bit_len)?;
+        let crc = crc::modes_checksum(&reader.cache, bit_len)?;
         Ok(crc)
     }
 }
