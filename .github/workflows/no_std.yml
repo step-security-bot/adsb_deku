@@ -18,4 +18,4 @@ jobs:
           toolchain: nightly
           target: thumbv7em-none-eabihf
       - uses: Swatinem/rust-cache@v2
-      - run: cargo build --manifest-path ensure_no_std/Cargo.toml
+      - run: cargo build --manifest-path ensure_no_std/Cargo.toml --target thumbv7em-none-eabihf
