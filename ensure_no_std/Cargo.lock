@@ -107,18 +107,15 @@ dependencies = [
 [[package]]
 name = "deku"
 version = "0.16.0"
-source = "git+https://github.com/sharksforarms/deku?branch=impl-reader#af4dd864d00586a3ccdd5f943d038d9287c805db"
 dependencies = [
  "acid_io",
  "bitvec",
  "deku_derive",
- "log",
 ]
 
 [[package]]
 name = "deku_derive"
 version = "0.16.0"
-source = "git+https://github.com/sharksforarms/deku?branch=impl-reader#af4dd864d00586a3ccdd5f943d038d9287c805db"
 dependencies = [
  "darling",
  "proc-macro2",
