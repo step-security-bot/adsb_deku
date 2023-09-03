@@ -382,7 +382,6 @@ fn testing_surveillancealtitudereply() {
 
 #[test]
 fn testing_surveillanceidentityreply_err() {
-    env_logger::init();
     let bytes = hex!("245093892a1bfd");
     let cursor = Cursor::new(bytes);
     let frame = Frame::from_reader(cursor).unwrap();
