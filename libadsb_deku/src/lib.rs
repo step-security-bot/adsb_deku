@@ -216,7 +216,6 @@ impl Frame {
         if bit_len > reader.cache.len() * 8 {
             let mut buf = vec![];
             reader.read_to_end(&mut buf).unwrap();
-            log::info!("reading more: {buf:02x?}");
             reader.cache.append(&mut buf);
         }
 
